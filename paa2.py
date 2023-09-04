@@ -112,7 +112,7 @@ def dataset_initialization(path):
             writer.writerow(row)
 
 def render_depth(path):
-    from monodepth2.test_simple import render_depth
+    from third_party.monodepth2.test_simple import render_depth
     render_depth(path)
 
 def project_kern(kern_size):
