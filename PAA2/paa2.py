@@ -18,7 +18,8 @@ from torchvision.transforms import ToTensor
 from torchvision.utils import save_image
 import requests
 from unrar import rarfile
-
+import cv2
+import random
 
 def args():
     parser = argparse.ArgumentParser()
@@ -26,7 +27,7 @@ def args():
     parser.add_argument('--input_dir', type=str, default='dataset')
     parser.add_argument('--mean', type=float, default=np.array([0.485, 0.456, 0.406]))
     parser.add_argument('--std', type=float, default=np.array([0.229, 0.224, 0.225]))
-    parser.add_argument("--max_epsilon", type=float, default=5.0)
+    parser.add_argument("--max_epsilon", type=float, default=16.0)
     parser.add_argument("--num_iter_set", type=int, default=10)
     parser.add_argument("--image_width", type=int, default=299)
     parser.add_argument("--image_height", type=int, default=299)
@@ -37,10 +38,6 @@ def args():
     parser.add_argument("--prob", type=float, default=0.7)
     opt = parser.parse_args()
     return opt
-
-
-
-
 
 class ImageNet(data.Dataset):
     def __init__(self, dir, csv_path, transforms = None):
@@ -165,11 +162,6 @@ def graph(x, gt, x_min, x_max):
         loss.backward()
         noise = x.grad.data
 
-        # MI-FGSM
-        # noise = noise / torch.abs(noise).mean([1,2,3], keepdim=True)
-        # noise = momentum * grad + noise
-        # grad = noise
-
         amplification += alpha_beta * torch.sign(noise)
         cut_noise = torch.clamp(abs(amplification) - eps, 0, 10000.0) * torch.sign(amplification)
         projection = gamma * torch.sign(project_noise(cut_noise, stack_kern, padding_size))
@@ -181,6 +173,51 @@ def graph(x, gt, x_min, x_max):
         x = V(x, requires_grad = True)
 
     return x.detach()
+
+def adverse_weather_layer(weather, dataset_path):
+    if weather == 'haze':
+        trans_floder = dataset_path + '_trans'
+        trans_files = [transimg for transimg in os.listdir(trans_floder)]
+        gt_files = [gtimg for gtimg in os.listdir(dataset_path)]
+        for index in tqdm(range(len(trans_files))):
+            J = cv2.imread(trans_files[index].replace('_trans', '')) / 255.0
+            t = cv2.imread(trans_files[index], cv2.IMREAD_GRAYSCALE) / 255.0
+            # A = random.uniform(0.8, 1.0)
+            A = 0.3
+            t = t[:, :, np.newaxis]
+            I = J * 1 + A * (1 - t)
+            I = np.clip(I * 255, 0, 255).astype(np.uint8)
+            os.mkdir(dataset_path + '_haze')
+            cv2.imwrite(dataset_path + '_haze/{}'.format(trans_files[index].split('/')[-1]), I)
+    elif weather == 'rain':
+        trans_floder = dataset_path + '_rainlayer'
+        rain_files = [rainimg for rainimg in os.listdir(trans_floder)]
+        gt_files = [gtimg for gtimg in os.listdir(dataset_path)]
+        for index in tqdm(range(len(gt_files))):
+            t = cv2.imread(rain_files[random.randint(0, len(rain_files))]) / 255.0
+            J = cv2.imread(gt_files[index]) / 255.0
+            for i in range(t.shape[0]):
+                for j in range(t.shape[1]):
+                    if not np.array_equal(t[i, j], [255, 255, 255]):
+                        J[i, j] = t[i, j]
+            I = np.clip(J * 255, 0, 255).astype(np.uint8)
+            os.mkdir(dataset_path + '_rain')
+            cv2.imwrite(dataset_path + '_rain/{}'.format(gt_files[index].split('/')[-1]), I)
+    elif weather == 'snow':
+        trans_floder = dataset_path + '_snowlayer'
+        rain_files = [rainimg for rainimg in os.listdir(trans_floder)]
+        gt_files = [gtimg for gtimg in os.listdir(dataset_path)]
+        for index in tqdm(range(len(gt_files))):
+            t = cv2.imread(rain_files[random.randint(0, len(rain_files))]) / 255.0
+            J = cv2.imread(gt_files[index]) / 255.0
+            for i in range(t.shape[0]):
+                for j in range(t.shape[1]):
+                    if not np.array_equal(t[i, j], [255, 255, 255]):
+                        J[i, j] = t[i, j]
+            I = np.clip(J * 255, 0, 255).astype(np.uint8)
+            os.mkdir(dataset_path + '_snow')
+            cv2.imwrite(dataset_path + '_snow/{}'.format(gt_files[index].split('/')[-1]), I)
+
 
 
 def input_diversity(input_tensor):
@@ -198,7 +235,7 @@ def input_diversity(input_tensor):
     return padded if torch.rand(()) < opt.prob else input_tensor
 
 
-def main():
+def main(opt):
     res152 = torch.nn.Sequential(Normalize(opt.mean, opt.std),
                                  models.resnet152(pretrained=True).eval().cuda())
     inc_v3 = torch.nn.Sequential(Normalize(opt.mean, opt.std),
@@ -272,4 +309,12 @@ if __name__ == '__main__':
         else:
             print("cannot download snowlayer file")
     else:
-        main()
+        for weather in ['haze', 'rain', 'snow']:
+            adverse_weather_layer(weather, opt.input_dir)
+        for weather in ['haze', 'rain', 'snow']:
+            if '_' not in opt.input_dir:
+                opt.input_dir = opt.input_dir +'_' + weather
+                main(opt)
+            else:
+                opt.input_dir = opt.input_dir[:-4] + weather
+                main(opt)
