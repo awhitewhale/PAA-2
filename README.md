@@ -37,4 +37,10 @@ ASR (%), PSNR (dB), SSIM, and NIQE values of various gradient-based attacks in a
 are generated using MI-FGSM, TIM, SIM, VT-FGSM, Admix, and PAM, and our PAA^2 attack methods on Inc-v3, Inc-v4, IncRes-v2,
 and Res-101 models. * denotes white-box model. Bolded, Underlined, and Italicized represent the first, second, and third ranked performance, respectively.
 
+
 ![](third_party/fig2.png)
+
+Visualization of PAA^2 and PAM for adversarial examples. Here, we randomly selected ten images and generated adversarial examples on Inc-v3. The
+variables in parentheses represent the noise types of PAA^2.
+
+![](third_party/fig3.png)
