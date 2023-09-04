@@ -125,7 +125,6 @@ def project_kern(kern_size):
     return stack_kern, kern_size // 2
 
 def project_noise(x, stack_kern, padding_size):
-    # x = tf.pad(x, [[0,0],[kern_size,kern_size],[kern_size,kern_size],[0,0]], "CONSTANT")
     x = F.conv2d(x, stack_kern, padding = (padding_size, padding_size), groups=3)
     return x
 
