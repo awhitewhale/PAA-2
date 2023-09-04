@@ -31,3 +31,10 @@ GCC (GNU Compiler Collection) 11.2.1 20220127 (Red Hat 11.2.1-9).
 ```python
 python paa2.py -input_csv dataset.csv -input_dir dataset -max_epsilon 16.0 -num_iter_set 10 -batch_size 100 -momentum 1.0 -amplification 10.0 -prob 0.7
 ```
+
+
+ASR (%), PSNR (dB), SSIM, and NIQE values of various gradient-based attacks in a single normally trained model environment. Adversarial examples
+are generated using MI-FGSM, TIM, SIM, VT-FGSM, Admix, and PAM, and our PAA^2 attack methods on Inc-v3, Inc-v4, IncRes-v2,
+and Res-101 models. * denotes white-box model. Bolded, Underlined, and Italicized represent the first, second, and third ranked performance, respectively.
+
+![](third_party/fig2.png)
