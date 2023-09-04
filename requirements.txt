@@ -1,0 +1,88 @@
+absl-py==1.4.0
+astor==0.8.1
+astunparse==1.6.3
+Bottleneck @ file:///opt/conda/conda-bld/bottleneck_1657175564434/work
+cachetools==5.3.0
+certifi @ file:///croot/certifi_1671487769961/work/certifi
+cffi @ file:///croot/cffi_1670423208954/work
+charset-normalizer==3.1.0
+cycler==0.11.0
+depthwise-conv2d-implicit-gemm==0.0.0
+dominate==2.8.0
+flatbuffers==23.5.9
+flit_core @ file:///opt/conda/conda-bld/flit-core_1644941570762/work/source/flit_core
+fonttools==4.38.0
+gast==0.2.2
+google-auth==2.18.0
+google-auth-oauthlib==0.4.6
+google-pasta @ file:///Users/ktietz/demo/mc3/conda-bld/google-pasta_1630577991354/work
+grpcio==1.54.2
+h5py @ file:///tmp/abs_4aewd3wzey/croots/recipe/h5py_1659091371897/work
+idna==3.4
+imageio==2.29.0
+importlib-metadata==6.6.0
+jsonpatch==1.32
+jsonpointer==2.3
+keras==2.11.0
+Keras-Applications @ file:///tmp/build/80754af9/keras-applications_1594366238411/work
+Keras-Preprocessing @ file:///tmp/build/80754af9/keras-preprocessing_1612283640596/work
+kiwisolver==1.4.4
+libclang==16.0.0
+Markdown==3.4.3
+MarkupSafe==2.1.2
+matplotlib==3.5.3
+mkl-fft==1.3.0
+mkl-random==1.1.0
+mkl-service==2.3.0
+msgpack==1.0.5
+msgpack-numpy==0.4.8
+networkx==2.6.3
+numexpr @ file:///tmp/build/80754af9/numexpr_1614798504508/work
+numpy @ file:///tmp/build/80754af9/numpy_and_numpy_base_1603479632437/work
+nvidia-cublas-cu11==11.10.3.66
+nvidia-cuda-nvrtc-cu11==11.7.99
+nvidia-cuda-runtime-cu11==11.7.99
+nvidia-cudnn-cu11==8.5.0.96
+oauthlib==3.2.2
+opencv-python==4.7.0.72
+opt-einsum @ file:///tmp/build/80754af9/opt_einsum_1621500238896/work
+packaging==23.1
+pandas==1.3.5
+Pillow==9.5.0
+protobuf==3.20.3
+psutil==5.9.5
+pyasn1==0.5.0
+pyasn1-modules==0.3.0
+pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
+pyparsing==3.0.9
+python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
+pytz @ file:///croot/pytz_1671697431263/work
+pyzmq==25.0.2
+requests==2.28.2
+requests-oauthlib==1.3.1
+rsa==4.9
+scipy==1.2.0
+six @ file:///tmp/build/80754af9/six_1644875935023/work
+tabulate==0.9.0
+tensorboard==1.15.0
+tensorboard-data-server==0.6.1
+tensorboard-plugin-wit==1.8.1
+tensorflow==1.15.5
+tensorflow-estimator==1.15.1
+tensorflow-io-gcs-filesystem==0.32.0
+tensorpack==0.11
+termcolor==2.3.0
+tf-slim==1.1.0
+torch==1.13.1
+torchvision==0.14.1
+tornado==6.2
+tqdm @ file:///opt/conda/conda-bld/tqdm_1664392687731/work
+typing_extensions==4.5.0
+unrar==0.4
+urllib3==1.26.15
+visdom==0.2.4
+webencodings==0.5.1
+websocket-client==1.5.2
+Werkzeug==2.2.3
+wrapt==1.15.0
+zipp==3.15.0
