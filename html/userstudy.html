@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Study</title>
+</head>
+<body>
+    <h1>User Study</h1>
+    <h2>The ranking range is from 1 to 8, based on the naturalness and the extent of attack. Lower ranks indicated images that are more natural and less likely to be attacked. Please rank the follow images.</h2>
+    <p></p>
+
+    <div id="imageContainer">
+    </div>
+    <script>
+        // 获取文件夹选择输入框
+        var folderInput = document.getElementById('folderInput');
+
+        // 获取文件名列表的 <ul> 元素
+        var fileList = document.getElementById('fileList');
+
+        // 监听文件夹选择框的change事件
+        folderInput.addEventListener('change', function (event) {
+            // 清空文件名列表
+            fileList.innerHTML = '';
+
+            // 获取选择的文件夹
+            var selectedFolder = event.target.files[0];
+
+            // 遍历文件夹中的文件
+            for (var i = 0; i < selectedFolder.length; i++) {
+                var fileName = selectedFolder[i].name;
+                var listItem = document.createElement('li');
+                listItem.textContent = fileName;
+                fileList.appendChild(listItem);
+            }
+        });
+    </script>
+    <script>
+        // 文件夹名称数组
+        var folderNames = [
+            'benign image',
+            'Admix',
+            'PAM',
+            'haze',
+            'rain',
+            'snow'
+        ];
+
+        // 随机选择一个文件夹
+        var randomFolderIndex = Math.floor(Math.random() * folderNames.length);
+        var selectedFolder = folderNames[randomFolderIndex];
+
+        // 图像文件名数组（假设它们都在各自的文件夹内）
+        var imageFileNames = [
+            '5adb3d985cf217a9.png',
+            '5d53f9bc389e98ad.png',
+            'a2de1f4f2c1021fa.png',
+            'c3e9a84e039df3ce.png',
+            'c335ce88293384f2.png',
+            'e96d52f9fbe3ca0b.png',
+            'e4941a341ace171a.png',
+            'efeabdd8a05e91f8.png',
+            'fccfc3563cd562e1.png',
+            'fdedd06cdf58084e.png'
+        ];
+
+        var imageContainer = document.getElementById('imageContainer');
+
+        folderNames.forEach(function (folder) {
+            var randomImageIndex = Math.floor(Math.random() * imageFileNames.length);
+            var randomImageName = imageFileNames[randomImageIndex];
+
+            var imagePath = folder + '/' + randomImageName;
+
+            var imgElement = document.createElement('img');
+            imgElement.src = imagePath;
+            imageContainer.appendChild(imgElement);
+        });
+    </script>
+    <form id="textInputForm">
+        <label for="userInput">Please input you rank (e.g. 15326487):</label>
+        <input type="text" id="userInput" name="userInput">
+        <button type="submit">submit</button>
+    </form>
+
+    <script>
+    </script>
+</body>
+</html>
