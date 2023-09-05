@@ -282,7 +282,7 @@ if __name__ == '__main__':
     elif not os.path.exists(opt.input_dir + '_trans'):
         render_depth(opt.input_dir)
     elif not os.path.exists(opt.input_dir + '_rainlayer'):
-        rar_url = "https://example.com/path/to/your/file.rar"
+        rar_url = "https://github.com/awhitewhale/PAA-2/blob/main/third_party/layers/rain_layer.zip"
         rar_filename = "PAA2_rainlayer.rar"
         extracted_folder = opt.input_dir + '_rainlayer'
         response = requests.get(rar_url)
@@ -295,7 +295,7 @@ if __name__ == '__main__':
         else:
             print("cannot download rainlayer file")
     elif not os.path.exists(opt.input_dir + '_snowlayer'):
-        rar_url = "https://example.com/path/to/your/file.rar"
+        rar_url = "https://github.com/awhitewhale/PAA-2/blob/main/third_party/layers/snow_layer.zip"
         rar_filename = "PAA2_rainlayer.rar"
         extracted_folder = opt.input_dir + '_snowlayer'
         response = requests.get(rar_url)
