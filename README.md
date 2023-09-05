@@ -44,3 +44,5 @@ Visualization of PAA^2 and PAM for adversarial examples. Here, we randomly selec
 variables in parentheses represent the noise types of PAA^2.
 
 ![](third_party/fig3.png)
+
+The user study webpage is available at https://github.com/awhitewhale/PAA-2/blob/main/html/userstudy.html.
